@@ -1,11 +1,11 @@
-# 驗證 clasp-gas-skill 的結構、編碼、安全規則與四全域目標安裝冪等性。
+# 驗證 agent-clasp-gas 的結構、編碼、安全規則與四全域目標安裝冪等性。
 
 [CmdletBinding()]
 param()
 
 $ErrorActionPreference = 'Stop'
 $root = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path.TrimEnd('\', '/')
-$skillRoot = Join-Path $root 'skills/clasp-setup'
+$skillRoot = Join-Path $root 'skills/clasp-gas'
 $appRoot = Join-Path $root 'apps/student-grade-system'
 $errors = [Collections.Generic.List[string]]::new()
 
@@ -44,9 +44,9 @@ $required = @(
     'scripts/install.mjs',
     'scripts/install.ps1',
     'scripts/install.sh',
-    'skills/clasp-setup/SKILL.md',
-    'skills/clasp-setup/agents/openai.yaml',
-    'skills/clasp-setup/references/platform-notes.md'
+    'skills/clasp-gas/SKILL.md',
+    'skills/clasp-gas/agents/openai.yaml',
+    'skills/clasp-gas/references/platform-notes.md'
 )
 
 foreach ($relative in $required) {
@@ -81,8 +81,8 @@ $name = ((Get-Content -LiteralPath $skillFile -Encoding UTF8 -TotalCount 12 |
         Where-Object { $_ -match '^\s*name:' } |
         Select-Object -First 1) -replace '^\s*name:\s*', '').Trim().Trim('"', "'")
 
-if ($name -ne 'clasp-setup') {
-    Add-ValidationError "Skill name 應為 clasp-setup，目前是：$name"
+if ($name -ne 'clasp-gas') {
+    Add-ValidationError "Skill name 應為 clasp-gas，目前是：$name"
 }
 if ((Split-Path -Leaf $skillRoot) -ne $name) {
     Add-ValidationError 'Skill 資料夾名與 frontmatter name 不一致。'
@@ -103,8 +103,8 @@ foreach ($requiredText in @(
 
 try {
     $plugin = Get-Content -LiteralPath (Join-Path $root '.codex-plugin/plugin.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-    if ($plugin.name -ne 'clasp-gas-skill') {
-        Add-ValidationError 'plugin.json name 必須是 clasp-gas-skill。'
+    if ($plugin.name -ne 'agent-clasp-gas') {
+        Add-ValidationError 'plugin.json name 必須是 agent-clasp-gas。'
     }
     if ($plugin.skills -ne './skills/') {
         Add-ValidationError 'plugin.json skills 必須指向 ./skills/。'
@@ -114,8 +114,8 @@ try {
 }
 
 $openaiYaml = Get-Content -LiteralPath (Join-Path $skillRoot 'agents/openai.yaml') -Raw -Encoding UTF8
-if (-not $openaiYaml.Contains('$clasp-setup')) {
-    Add-ValidationError 'agents/openai.yaml 的 default_prompt 必須明確提到 $clasp-setup。'
+if (-not $openaiYaml.Contains('$clasp-gas')) {
+    Add-ValidationError 'agents/openai.yaml 的 default_prompt 必須明確提到 $clasp-gas。'
 }
 
 $readme = Get-Content -LiteralPath (Join-Path $root 'README.md') -Raw -Encoding UTF8
@@ -230,16 +230,16 @@ try {
         [IO.File]::WriteAllText((Join-Path $excludedDir 'junk.txt'), 'junk', [Text.UTF8Encoding]::new($false))
         & (Join-Path $root 'scripts' 'install.ps1') *> $null
         foreach ($relativeBase in $relativeBases) {
-            $target = Join-Path $fakeUserProfile (Join-Path $relativeBase 'clasp-setup')
+            $target = Join-Path $fakeUserProfile (Join-Path $relativeBase 'clasp-gas')
             if (Test-Path -LiteralPath (Join-Path $target 'node_modules')) {
-                Add-ValidationError "排除清單未生效，安裝了 node_modules：$(Join-Path $relativeBase clasp-setup)"
+                Add-ValidationError "排除清單未生效，安裝了 node_modules：$(Join-Path $relativeBase clasp-gas)"
             }
         }
         Remove-Item -LiteralPath $excludedDir -Recurse -Force
 
         # 第二次安裝：目標刻意留下舊版殘檔，確認更新會清掉它。
         foreach ($relativeBase in $relativeBases) {
-            $staleFile = Join-Path $fakeUserProfile (Join-Path (Join-Path $relativeBase 'clasp-setup') 'stale-from-previous-version.txt')
+            $staleFile = Join-Path $fakeUserProfile (Join-Path (Join-Path $relativeBase 'clasp-gas') 'stale-from-previous-version.txt')
             [IO.File]::WriteAllText($staleFile, 'stale', [Text.UTF8Encoding]::new($false))
         }
         & (Join-Path $root 'scripts' 'install.ps1') *> $null
@@ -256,10 +256,10 @@ try {
 
     $sourceMap = Get-FileMap -Base $skillRoot
     foreach ($relativeBase in $relativeBases) {
-        $relativeTarget = Join-Path $relativeBase 'clasp-setup'
+        $relativeTarget = Join-Path $relativeBase 'clasp-gas'
         $target = Join-Path $fakeUserProfile $relativeTarget
-        if (Test-Path -LiteralPath (Join-Path $target 'clasp-setup')) {
-            Add-ValidationError "重複安裝產生巢狀資料夾：$(Join-Path $relativeTarget clasp-setup)"
+        if (Test-Path -LiteralPath (Join-Path $target 'clasp-gas')) {
+            Add-ValidationError "重複安裝產生巢狀資料夾：$(Join-Path $relativeTarget clasp-gas)"
         }
         if (Test-Path -LiteralPath (Join-Path $target 'stale-from-previous-version.txt')) {
             Add-ValidationError "更新後仍殘留舊檔：$(Join-Path $relativeTarget stale-from-previous-version.txt)"

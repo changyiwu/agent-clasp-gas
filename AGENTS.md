@@ -22,7 +22,7 @@
 ## 資料夾結構
 
 ```text
-clasp-gas-skill/
+agent-clasp-gas/
 ├── .codex-plugin/
 │   └── plugin.json                 # Codex plugin manifest
 ├── apps/
@@ -43,7 +43,7 @@ clasp-gas-skill/
 │   ├── install.sh                  # 可選 macOS／Linux 進入點，純轉呼叫 install.mjs
 │   └── validate.ps1                # 結構、安全、殼層漂移與安裝冪等驗證
 ├── skills/
-│   └── clasp-setup/
+│   └── clasp-gas/
 │       ├── SKILL.md                # 唯一的 Agent 工作流程來源
 │       ├── agents/openai.yaml      # Codex UI metadata
 │       └── references/
@@ -63,9 +63,9 @@ clasp-gas-skill/
 
 ### 內容與文件同步
 
-- `skills/clasp-setup/SKILL.md` 是 Agent 工作流程的唯一內容來源；`README.md` 是人類版說明。
+- `skills/clasp-gas/SKILL.md` 是 Agent 工作流程的唯一內容來源；`README.md` 是人類版說明。
 - 改動流程、指令、前置需求或錯誤處理時，同步更新 `SKILL.md`、`README.md` 與受影響的 reference。
-- 平台差異集中在 `skills/clasp-setup/references/platform-notes.md`，不要把四套平台設定塞回主流程。
+- 平台差異集中在 `skills/clasp-gas/references/platform-notes.md`，不要把四套平台設定塞回主流程。
 
 ### clasp 技術基準
 
@@ -85,9 +85,9 @@ clasp-gas-skill/
 
 - 原始 Skill 只維護一份，安裝器負責複製到平台專屬全域目錄。
 - 安裝器只提供四平台全域安裝，不建立 repo 內的專案層級 Skill 副本。
-- 安裝必須可重複執行，不得產生 `clasp-setup/clasp-setup/` 巢狀目錄或留下已刪除的舊檔。
+- 安裝必須可重複執行，不得產生 `clasp-gas/clasp-gas/` 巢狀目錄或留下已刪除的舊檔。
 - 安裝後用遞迴檔案清單與 SHA-256 驗證來源和目標一致。
-- 未經使用者明確要求，不覆蓋四個全域 Skill 副本；正式同步交給 `sync-skills`。
+- 未經使用者明確要求，不覆蓋四個全域 Skill 副本；正式同步交給 `skill-sync`。
 
 ### 實際 GAS 應用程式
 
@@ -96,7 +96,7 @@ clasp-gas-skill/
 - `.clasp.json` 只保留在本機並由 `.gitignore` 排除；GitHub 只保存可公開的程式碼與 placeholder 文件。
 - 刪除舊本機 repo 前，必須從本目錄通過 SHA-256、`show-file-status`、部署清單與瀏覽器載入驗證。
 - 刪除舊本機 repo 不等於刪除線上 Apps Script 或 Google Sheets；未經使用者明確要求，不得刪除線上專案、部署或試算表。
-- 線上的 Apps Script 專案與 `StudentGradeSystemDatabase` 試算表都放在雲端硬碟的 `agents/clasp-gas-skill/apps/student-grade-system` 資料夾；搬動只改父資料夾，檔案 ID 不變，`.clasp.json` 的 scriptId 與指令碼屬性 `SPREADSHEET_ID` 都不受影響。
+- 線上的 Apps Script 專案與 `StudentGradeSystemDatabase` 試算表都放在雲端硬碟的 `agents/agent-clasp-gas/apps/student-grade-system` 資料夾；搬動只改父資料夾，檔案 ID 不變，`.clasp.json` 的 scriptId 與指令碼屬性 `SPREADSHEET_ID` 都不受影響。
 
 ### 安全與隱私
 
@@ -120,8 +120,8 @@ clasp-gas-skill/
 | 層級 | 平台 | 位置 | 讀取時機 |
 |------|------|------|---------|
 | L1 | 本地（GDrive） | `AGENTS.md`＋`handoff.md`（不進 git，只走雲端硬碟）＋`CLAUDE.md`（橋接） | 每個 session |
-| L2 | GitHub | [`changyiwu/clasp-gas-skill`](https://github.com/changyiwu/clasp-gas-skill)（公開） | 指定時 |
-| L3 | Obsidian | `clasp-gas-skill/專案工作流程.md` | 有需要時 |
+| L2 | GitHub | [`changyiwu/agent-clasp-gas`](https://github.com/changyiwu/agent-clasp-gas)（公開） | 指定時 |
+| L3 | Obsidian | `agent-clasp-gas/專案工作流程.md` | 有需要時 |
 
 ## 三個檔案的職責（依「時效性」分家，不是依「詳細程度」）
 

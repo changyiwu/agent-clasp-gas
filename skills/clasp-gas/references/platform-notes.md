@@ -11,10 +11,10 @@ Agent Skill 的內容格式可以共用；本 repo 的安裝器只安裝到四�
 
 | 平台 | 全域位置 |
 |---|---|
-| Claude Code | `~/.claude/skills/clasp-setup/` |
-| ChatGPT 應用程式／Codex | `~/.agents/skills/clasp-setup/` |
-| OpenCode | `~/.config/opencode/skills/clasp-setup/` |
-| Antigravity | `~/.gemini/config/skills/clasp-setup/` |
+| Claude Code | `~/.claude/skills/clasp-gas/` |
+| ChatGPT 應用程式／Codex | `~/.agents/skills/clasp-gas/` |
+| OpenCode | `~/.config/opencode/skills/clasp-gas/` |
+| Antigravity | `~/.gemini/config/skills/clasp-gas/` |
 
 裝完沒出現在清單裡 → 重開 agent 或開一個新對話。
 

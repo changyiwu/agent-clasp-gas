@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 安裝 clasp-setup 技能到本機四個 Agent 全域目錄。
+// 安裝 clasp-gas 技能到本機四個 Agent 全域目錄。
 //
 // 這是安裝邏輯的「唯一」實作，Windows／macOS／Linux 共用同一份程式碼。
 // scripts/install.ps1 與 scripts/install.sh 只是轉呼叫殼層，不得含任何安裝邏輯。
@@ -26,7 +26,7 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-const SKILL_NAME = 'clasp-setup';
+const SKILL_NAME = 'clasp-gas';
 const SKIP_DIRS = new Set([
   '.git',
   'node_modules',

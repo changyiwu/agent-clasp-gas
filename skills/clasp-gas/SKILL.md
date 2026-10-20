@@ -1,5 +1,5 @@
 ---
-name: clasp-setup
+name: clasp-gas
 description: 把 Google Apps Script 接進 AI agent 的完整流程（clasp 登入 → 建立綁定試算表的專案 → push 程式碼 → 部署成網頁應用程式 → 取得正確網址）。使用者說「接 Apps Script」「clasp 登入」「把試算表變成網頁表單」「部署 GAS 網頁應用程式」「用 clasp 改線上的程式碼」時載入。
 license: MIT
 ---

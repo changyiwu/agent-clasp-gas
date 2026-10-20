@@ -60,8 +60,8 @@ Agent Skill 的內容格式可以共用，但全域安裝採四個平台各自�
 **Windows、macOS、Linux 都是同一行**，不必分平台：
 
 ```bash
-git clone https://github.com/changyiwu/clasp-gas-skill.git
-node ./clasp-gas-skill/scripts/install.mjs
+git clone https://github.com/changyiwu/agent-clasp-gas.git
+node ./agent-clasp-gas/scripts/install.mjs
 ```
 
 安裝邏輯只有 `scripts/install.mjs` 這一份，三個作業系統跑的是同一段程式碼，不會有兩套實作各自漂移的問題。Node.js 不是額外負擔：clasp v3 本來就要求它，沒裝 Node 這個技能第一步就跑不動。直接呼叫 `node` 也繞開了 Windows 的 PowerShell 執行原則與 `Unblock-File`。
@@ -71,12 +71,12 @@ node ./clasp-gas-skill/scripts/install.mjs
 
 ```powershell
 # Windows
-./clasp-gas-skill/scripts/install.ps1
+./agent-clasp-gas/scripts/install.ps1
 ```
 
 ```bash
 # macOS／Linux
-bash ./clasp-gas-skill/scripts/install.sh
+bash ./agent-clasp-gas/scripts/install.sh
 ```
 
 這兩支只負責找到 `node` 並轉呼叫 `install.mjs`，沒有任何自己的安裝邏輯，行為與上面那行完全一樣。
@@ -85,11 +85,11 @@ bash ./clasp-gas-skill/scripts/install.sh
 
 > 為什麼不做成單一 PowerShell 腳本跑遍 Windows 與 macOS？因為 PowerShell 7 在**兩個平台都不是內建的**——Windows 內建的是 5.1，macOS 內建的是 zsh，等於要使用者各多裝一個 runtime；而 Node 是本來就必須有的。
 
-全域模式只安裝到**已存在**的 Agent Skill 根目錄，不會替尚未安裝的工具建立空目錄。每個目標都會做遞迴 SHA-256 驗證；重複執行會更新原位置，不會產生巢狀 `clasp-setup/clasp-setup`，也會清掉來源已刪除的舊檔。
+全域模式只安裝到**已存在**的 Agent Skill 根目錄，不會替尚未安裝的工具建立空目錄。每個目標都會做遞迴 SHA-256 驗證；重複執行會更新原位置，不會產生巢狀 `clasp-gas/clasp-gas`，也會清掉來源已刪除的舊檔。
 安裝器只提供全域安裝，不會在目前 repo 建立專案層級的 Skill 副本。
 
 > 裝完技能沒出現在清單裡 → 重開 agent 或開一個新對話。
-> 各平台的細節與差異見 [`skills/clasp-setup/references/platform-notes.md`](skills/clasp-setup/references/platform-notes.md)。
+> 各平台的細節與差異見 [`skills/clasp-gas/references/platform-notes.md`](skills/clasp-gas/references/platform-notes.md)。
 
 ---
 
@@ -121,13 +121,13 @@ bash ./clasp-gas-skill/scripts/install.sh
 ## 檔案結構
 
 ```text
-clasp-gas-skill/
+agent-clasp-gas/
 ├── .codex-plugin/
 │   └── plugin.json
 ├── apps/
 │   └── student-grade-system/       ← 已部署的 GAS 同源前後端完整原始碼
 ├── skills/
-│   └── clasp-setup/
+│   └── clasp-gas/
 │       ├── SKILL.md                     ← 技能本體
 │       ├── agents/
 │       │   └── openai.yaml

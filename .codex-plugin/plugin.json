@@ -1,13 +1,13 @@
 {
-  "name": "clasp-gas-skill",
+  "name": "agent-clasp-gas",
   "version": "1.1.0",
   "description": "Connect Google Apps Script to your AI agent via clasp — login, create, push, deploy, and get the correct web app URL.",
   "author": {
     "name": "changyiwu",
     "url": "https://github.com/changyiwu"
   },
-  "homepage": "https://github.com/changyiwu/clasp-gas-skill",
-  "repository": "https://github.com/changyiwu/clasp-gas-skill",
+  "homepage": "https://github.com/changyiwu/agent-clasp-gas",
+  "repository": "https://github.com/changyiwu/agent-clasp-gas",
   "license": "MIT",
   "keywords": ["clasp", "apps-script", "google", "spreadsheet", "webapp", "agent-skill"],
   "skills": "./skills/",
