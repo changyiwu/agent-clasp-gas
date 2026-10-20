@@ -19,3 +19,6 @@ handoff.md
 
 # 依賴
 node_modules/
+
+# 產出一律放 output/，不進 git
+output/

@@ -151,3 +151,4 @@ agent-clasp-gas/
 - **安裝邏輯只有一份：`scripts/install.mjs`（Node.js，跨平台共用）**。`install.ps1` 與 `install.sh` 是純轉呼叫殼層，**不得含任何複製、排除、雜湊或路徑判斷邏輯**——舊的雙軌實作已漂移過一次，不要走回去。改安裝行為一律只改 `install.mjs`。
 - 對外文件的**主要安裝指令是 `node scripts/install.mjs`**，三個作業系統同一行。`install.ps1`／`install.sh` 降級為「可選的方便寫法」，不要再把它們寫成分平台的正式入口——那會讓人誤以為存在兩套安裝方式。
 - 選 Node 而非 pwsh 或 Python 的理由：clasp v3 本來就要求 Node.js 22+，不新增任何依賴。**不要再提議「叫使用者先裝 PowerShell 7 就能單一腳本跑遍 Windows 與 macOS」**——pwsh 7 在兩個平台都不是內建的（Windows 是 5.1、macOS 是 zsh），等於兩邊各多一個 runtime 安裝步驟，而且 5.1 讀無 BOM 的繁中檔會誤判編碼、下載來的 `.ps1` 還卡執行原則。pwsh 7 只在維護者跑 `validate.ps1` 時要求，不是使用者的安裝門檻。
+- **產出一律放 `output/`**：本專案產生的檔案或資料夾（成品、匯出、報表、生成圖、渲染等）預設放專案根目錄的 `output/`，不另開 `outputs/`、`exports/`、`generated/`、`out/` 之類的資料夾，方便找；`output/` 不進 git。部署工具指定的建置目錄（`dist/`、`build/`）不在此限
