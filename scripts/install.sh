@@ -13,7 +13,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if ! command -v node >/dev/null 2>&1; then
-  echo "找不到 Node.js。clasp v3 需要 Node.js 22 以上，請先安裝：https://nodejs.org/" >&2
+  echo "找不到 Node.js。clasp v3 需要 Node.js 20 以上，請先安裝：https://nodejs.org/" >&2
   exit 1
 fi
 

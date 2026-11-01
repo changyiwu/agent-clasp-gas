@@ -110,7 +110,7 @@ bash ./agent-clasp-gas/scripts/install.sh
 
 ## 需求
 
-- **Node.js 22 以上**（clasp v3 的要求）
+- **Node.js 20 以上**（clasp v3 的要求）
 - 建議使用個人 Google 帳號；Workspace 是否可用取決於網域政策，受限時需管理員 allow-list clasp 或提供內部 OAuth 專案
 - 到 <https://script.google.com/home/usersettings> 打開「Google Apps Script API」（開完要等 1–2 分鐘生效）
 

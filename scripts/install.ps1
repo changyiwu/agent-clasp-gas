@@ -19,7 +19,7 @@ $installer = Join-Path $PSScriptRoot 'install.mjs'
 $node = Get-Command node -CommandType Application -ErrorAction SilentlyContinue
 
 if (-not $node) {
-    throw '找不到 Node.js。clasp v3 需要 Node.js 22 以上，請先安裝：https://nodejs.org/'
+    throw '找不到 Node.js。clasp v3 需要 Node.js 20 以上，請先安裝：https://nodejs.org/'
 }
 
 & $node.Source $installer @Rest

@@ -83,7 +83,7 @@ license: MIT
 
 | 檢查 | 怎麼做 | 不過的話 |
 |---|---|---|
-| Node 版本 | `node --version` | clasp v3 要 **Node 22 以上**。低於或找不到 → 問他「要我幫你裝 Node.js LTS 嗎？」 |
+| Node 版本 | `node --version` | clasp v3 要 **Node 20 以上**。低於或找不到 → 問他「要我幫你裝 Node.js LTS 嗎？」 |
 | Apps Script API 開關 | 無法用指令查，**直接問使用者** | 沒開 → 給他 <https://script.google.com/home/usersettings>，把「Google Apps Script API」打開。<br>**告訴他要等 1–2 分鐘才生效**，這段時間先做別的，不要空等 |
 | 資料夾 | 當前目錄是不是他要放專案的資料夾 | 不是 → 先確認要在哪裡建 |
 

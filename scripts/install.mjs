@@ -3,7 +3,7 @@
 //
 // 這是安裝邏輯的「唯一」實作，Windows／macOS／Linux 共用同一份程式碼。
 // scripts/install.ps1 與 scripts/install.sh 只是轉呼叫殼層，不得含任何安裝邏輯。
-// 選 Node 而非 pwsh 或 Python：clasp v3 本來就要 Node.js 22+，主流程整條靠
+// 選 Node 而非 pwsh 或 Python：clasp v3 本來就要 Node.js 20+，主流程整條靠
 // `npx --yes @google/clasp@3`，所以會用到這個技能的人必定已經有 Node，不新增依賴。
 //
 // 用法：
